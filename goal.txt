@@ -1,0 +1,509 @@
+1. HERO
+Name
+
+SAHIL KULRIA
+
+Role
+
+ROBOTICS ENGINEER
+
+Main heading
+
+Building robotic systems from simulation to hardware.
+
+Subheading
+
+I work across robot control, autonomous systems, perception, simulation, and industrial automation — turning robotic concepts into integrated systems that can operate in the real world.
+
+Small technical line
+
+ROBOTICS · CONTROL · SIMULATION · AUTONOMY · INDUSTRIAL AUTOMATION
+
+Buttons
+
+VIEW PROJECTS
+GET IN TOUCH
+
+2. ABOUT ME
+
+Use this almost exactly:
+
+About
+
+I am a Robotics Engineer focused on building autonomous and intelligent robotic systems.
+
+My work sits at the intersection of software, controls, perception, simulation, and physical hardware. I have worked on autonomous mobile robots, robotic manipulation, humanoid robots, computer vision systems, embedded control, and industrial robotics.
+
+I enjoy working on problems where software has to interact with the physical world — where algorithms, sensors, actuators, mechanical systems, and communication protocols all have to work together reliably.
+
+My robotics experience spans ROS 2, motion planning, SLAM, sensor fusion, computer vision, embedded systems, CAD and mechanical design. More recently, my work has expanded into industrial robotics and simulation, including NVIDIA Isaac Sim and industrial communication/integration.
+
+My long-term goal is to build complete robotic systems rather than isolated components — from simulation and control software to the hardware and industrial environment in which the robot actually operates.
+
+Small section underneath
+
+CURRENTLY EXPLORING
+
+Industrial Robotics
+Robot Control
+NVIDIA Isaac Sim
+ROS 2
+Industrial Communication
+PLC Integration
+MQTT
+Computer Vision
+Robot Manipulation
+3. A SHORT "WHAT I DO" SECTION
+
+This is useful because visitors shouldn't have to read your entire resume.
+
+What I build
+
+AUTONOMOUS ROBOTS
+
+Robots capable of sensing their environment, localizing themselves, planning motion, and operating with minimal human intervention.
+
+ROBOT MANIPULATION
+
+Robotic arms and manipulation pipelines involving kinematics, inverse kinematics, trajectory planning, feedback control, and synchronized actuation.
+
+ROBOT CONTROL
+
+Real-time control systems connecting high-level robotics software with motors, sensors, encoders, actuators, and embedded controllers.
+
+SIMULATION
+
+Simulation-driven development for validating robot behavior, trajectories, sensors, and system-level integration before deployment to hardware.
+
+INDUSTRIAL AUTOMATION
+
+Robotics systems that communicate with industrial infrastructure, controllers, PLCs, and other automation components.
+
+PERCEPTION
+
+Computer vision and sensor-processing pipelines for detecting, tracking, localizing, and understanding objects and environments.
+
+4. INDUSTRIAL EXPERIENCE
+
+This should be more prominent than your old Amadeus experience because your robotics career is the direction you're building toward.
+
+Wipro PARI
+
+Robotics / Simulation Engineer
+[START DATE] — PRESENT
+
+Description
+
+Working on industrial robotics and automation systems with a focus on simulation, robotic control, system integration, and industrial communication.
+
+Work
+
+• Developing robotics workflows using NVIDIA Isaac Sim and the Omniverse robotics ecosystem.
+
+• Working with robotic simulation environments, robot assets, control logic, and system-level integration.
+
+• Developing and integrating robotics workflows that connect simulation-side systems with industrial automation components.
+
+• Working on communication architectures between robotic systems and industrial controllers.
+
+• Exploring MQTT-based communication for exchanging commands, states, errors, and synchronization signals between robotic simulation and industrial systems.
+
+• Developing toward simulation-to-real workflows where robotic behavior can be validated before deployment to physical systems.
+
+Technologies
+NVIDIA Isaac Sim
+C++
+Python
+ROS 2
+Omniverse
+Industrial Automation
+PLC
+MQTT
+Robot Control
+Simulation
+
+Important: adjust the exact job title and dates to your official Wipro PARI details.
+
+5. AMADEUS
+
+Don't hide Amadeus. It actually makes your profile stronger because it demonstrates production software engineering experience.
+
+Amadeus Software Labs
+
+Software Development Engineer II
+Aug 2023 — Aug 2025
+
+Before moving deeper into robotics, I worked as a software engineer building and maintaining production-scale data systems.
+
+What I worked on
+
+• Developed scalable data pipelines using Scala and Apache Spark to transform large volumes of raw data into structured, analytics-ready datasets.
+
+• Optimized data-processing workflows using Hadoop and AWS services with a focus on scalability, performance, and reliability.
+
+• Worked on production systems where debugging, system design, maintainability, and reliability were critical.
+
+• Became the primary technical point of contact for critical product modules within six months of joining.
+
+Small transition statement
+
+This experience gave me a strong software engineering foundation that I now apply to robotics — particularly in building reliable, scalable robotics software and system architectures.
+
+That last sentence is very important for your story.
+
+It explains why a robotics portfolio includes two years of software engineering.
+
+6. FEATURED PROJECT — YOUR CURRENT ROBOT ARM
+
+This should probably be the hero project of the entire portfolio.
+
+Vision-Guided Mobile Robotic Arm
+
+PERSONAL ROBOTICS PROJECT · 2025 — PRESENT
+
+One-line description
+
+A ROS 2-based mobile manipulation platform combining robotic arm control, autonomous navigation, perception, and embedded systems.
+
+The problem
+
+Building a useful autonomous robot requires more than controlling an individual actuator. The robot needs to perceive its environment, understand where it is, plan motion, control its hardware, and coordinate multiple subsystems reliably.
+
+What I'm building
+
+I am developing a mobile robotic platform that combines a 6-DOF robotic arm with autonomous navigation and computer vision.
+
+Technical work
+
+• Developing a 6-DOF robotic manipulation pipeline using inverse kinematics, trajectory planning, and MoveIt 2.
+
+• Integrating feedback-driven actuator control for synchronized robotic motion.
+
+• Implementing autonomous navigation using SLAM, LiDAR-based localization, sensor fusion, and obstacle-aware planning.
+
+• Designing communication between ROS 2 nodes, embedded controllers, motor drivers, sensors, and actuator subsystems.
+
+• Using Gazebo simulation to validate robot behavior, trajectories, and system integration before deploying to hardware.
+
+• Working toward vision-guided manipulation so the robot can perceive and interact with objects in its environment.
+
+Stack
+ROS 2
+C++
+Python
+MoveIt 2
+Gazebo
+SLAM
+LiDAR
+Computer Vision
+Sensor Fusion
+Embedded Systems
+Motor Control
+Status
+
+ACTIVE DEVELOPMENT
+
+And on the website, put your best robot-arm video here.
+
+This project should have a large video/GIF rather than just a card.
+
+7. HUMANOID PROJECT
+
+This is potentially your strongest historical robotics project because it shows leadership + hardware + controls + autonomy.
+
+AUTОMI — Autonomous Humanoid Robot
+
+IIT Kanpur · Science and Technology Council
+
+Description
+
+An autonomous humanoid robot developed as a multidisciplinary robotics project at IIT Kanpur.
+
+What I worked on
+
+• Developed ROS-based autonomy capabilities including SLAM, localization, motion planning, and autonomous navigation.
+
+• Worked on the robot's pneumatic actuation, embedded control, sensor fusion, and distributed communication architecture.
+
+• Developed trajectory planning and motion-control systems for coordinated humanoid movement.
+
+• Worked on balancing and stability control for humanoid locomotion.
+
+• Designed mechanical structures and mechanisms using CAD tools.
+
+• Led a multidisciplinary robotics team of approximately 25 members covering mechanical design, electronics, controls, software, and robotics development.
+
+• Led recruitment and technical workshops while maintaining robotics R&D activities during the COVID-19 period.
+
+• Participated in the FIRA HuroCup 2019 with the humanoid robot.
+
+Technologies
+ROS
+SLAM
+Motion Planning
+Embedded Systems
+Pneumatics
+Sensor Fusion
+Control Systems
+CAD
+Mechanical Design
+Small highlight
+
+TEAM LEAD · ~25 MEMBERS
+
+That should be visually highlighted.
+
+8. COMPUTER VISION PROJECT
+Gesture-Controlled Virtual Blackboard
+
+Computer Vision · 2020
+
+Description
+
+A real-time computer vision system that turns hand gestures into an interactive virtual writing surface.
+
+What I built
+
+• Developed real-time hand detection and tracking using MediaPipe and OpenCV.
+
+• Converted hand movements and gestures into drawing interactions.
+
+• Implemented smooth drawing, shape generation, color selection, undo operations, and multi-page support.
+
+• Designed synchronized camera-processing and canvas-rendering pipelines for real-time interaction.
+
+• Packaged the system as a standalone Windows application for interactive teaching and digital classroom use.
+
+Links
+
+SOURCE CODE
+GitHub: https://github.com/sahilkulria002/Virtual-Board
+
+DEMO / EXECUTABLE
+
+Use your existing Google Drive link for the executable.
+
+9. LASER PRINTER PROJECT
+
+Don't make this look like a random college project. Frame it as electromechanical engineering.
+
+Laser Printer Mechanism — Reconstruction & Study
+
+Engineering Project · 2022
+
+Description
+
+Reconstructed a functional laser-printer mechanism to understand the electromechanical architecture behind precision motion systems.
+
+What I explored
+
+• Built and tested a functional laser-printer system.
+
+• Studied mechanical transmission systems and precision motion mechanisms.
+
+• Investigated synchronization between multiple actuators and moving mechanisms.
+
+• Explored how mechanical design, actuator coordination, and control logic interact in complex electromechanical systems.
+
+Why it matters
+
+This project strengthened my interest in the intersection of mechanical systems, electronics, actuation, and control — the same intersection at the core of robotics.
+
+10. ROBOTICS LAB SECTION
+
+This is where I would make your website different from your resume.
+
+Heading
+Building my own robotics stack.
+Text
+
+My personal robotics work is focused on gradually building complete robotic systems rather than isolated experiments.
+
+That means working across mechanical design, electronics, embedded control, robot software, simulation, perception, and system integration.
+
+Some experiments start in simulation. Others start with a motor, actuator, sensor, or mechanical mechanism on the bench. The goal is the same: understand the complete system and make it work reliably.
+
+Then show a visual timeline:
+
+MECHANICAL DESIGN
+       ↓
+ELECTRONICS
+       ↓
+EMBEDDED CONTROL
+       ↓
+ROBOT SOFTWARE
+       ↓
+SIMULATION
+       ↓
+PERCEPTION
+       ↓
+SYSTEM INTEGRATION
+       ↓
+REAL ROBOT
+
+This section can contain your robot-arm photos/videos, CAD screenshots, electronics, simulations, etc.
+
+11. TECHNICAL SKILLS
+
+Instead of the normal resume list, use:
+
+Robotics
+ROS 2
+MoveIt 2
+Gazebo
+SLAM
+Navigation
+Motion Planning
+Inverse Kinematics
+Sensor Fusion
+Robot Manipulation
+Perception
+OpenCV
+Object Detection
+Object Tracking
+Localization
+Depth Estimation
+MediaPipe
+Controls & Embedded
+PID Control
+Motor Control
+Encoders
+Arduino
+ESP32
+Embedded Systems
+Pneumatics
+Industrial Robotics
+NVIDIA Isaac Sim
+Omniverse
+Industrial Automation
+PLC Integration
+MQTT
+Robot Simulation
+System Integration
+Software
+C++
+Python
+Linux
+Git
+Shell
+Scala
+Jenkins
+Mechanical
+Fusion 360
+Inventor
+AutoCAD
+CAD
+Mechanism Design
+Structural Analysis
+Ansys
+12. "HOW I THINK ABOUT ROBOTICS"
+
+I would absolutely put this on the website.
+
+Heading
+
+A robot is a system, not a collection of components.
+
+Text
+
+A robotic arm is not just a motor controller.
+An autonomous robot is not just a navigation algorithm.
+
+Real robotic systems sit at the intersection of mechanics, electronics, control, perception, software, and communication.
+
+My approach is to understand those interfaces and build systems that work across them.
+
+Then:
+
+01
+PHYSICAL SYSTEM
+
+Understand the mechanics,
+actuation and constraints.
+
+02
+SENSING
+
+Understand what the robot
+can actually observe.
+
+03
+PLANNING
+
+Turn perception and goals
+into feasible motion.
+
+04
+CONTROL
+
+Translate plans into
+reliable physical motion.
+
+05
+INTEGRATION
+
+Make every subsystem
+communicate and operate together.
+
+That's a much stronger representation of you than a generic "my skills" section.
+
+13. EDUCATION
+
+Keep this relatively compact.
+
+Indian Institute of Technology Kanpur
+
+B.Tech + M.Tech — Materials Science and Engineering
+
+2018 — 2023
+
+CPI: 7.8 / 10
+
+Then one sentence:
+
+My engineering education gave me a foundation in materials, mechanics, manufacturing, and analytical problem solving that complements my work in robotics.
+
+14. LEADERSHIP
+
+You have three things worth highlighting.
+
+Robotics Team Lead — IIT Kanpur
+
+Led a multidisciplinary team of approximately 25 members developing an autonomous humanoid robot, coordinating work across mechanical design, controls, electronics, and software.
+
+Product Technical POC — Amadeus
+
+Became the primary technical point of contact for critical product modules within six months of joining, developing deep expertise in airline traffic management systems.
+
+Digital Learning Initiative
+
+Led technology-driven education initiatives during the beginning of the COVID-19 lockdown, helping schools adopt digital classroom platforms and remote teaching workflows.
+
+15. CONTACT
+
+Don't make this corporate.
+
+Heading
+
+Let's build something that moves.
+
+Text
+
+I'm interested in robotics, automation, intelligent machines, and difficult engineering problems.
+
+If you're working on something interesting — or want to build something together — I'd like to hear from you.
+
+Then:
+
+EMAIL
+sahilkulria002@gmail.com
+
+GITHUB
+sahilkulria002
+
+LINKEDIN
+sahil-kulria
+
+And:
+
+DOWNLOAD RESUME
