@@ -27,3 +27,8 @@ dist-ssr
 *.pdf
 !svm-dhukra/downloads/*.pdf
 _site
+
+# Private working notes and outreach drafts (kept locally, not on GitHub)
+start.txt
+goal.txt
+materials/
