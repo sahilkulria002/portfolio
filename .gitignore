@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Private source documents (not part of the website)
+*.pdf
+!svm-dhukra/downloads/*.pdf
+_site

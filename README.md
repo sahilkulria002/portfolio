@@ -1,103 +1,63 @@
-# Robotics Engineer Portfolio
+# Sahil Kulria: Robotics Portfolio + SVM Dhukra Initiative
 
-A modern, technical portfolio website built with React + Vite for a robotics engineer. Features a dark, minimalist design inspired by engineering labs and includes a 3D robotic arm visualization using React Three Fiber.
-
-## Features
-
-- **Dark Technical Aesthetic**: Premium engineering-focused design
-- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
-- **3D Visualization**: Interactive 3D robotic arm in hero section
-- **Smooth Animations**: Subtle motion effects using Framer Motion
-- **Component-Based Architecture**: Easy to maintain and update
-- **GitHub Pages Ready**: Fully static site optimized for deployment
-- **Accessibility**: Semantic HTML, keyboard navigation, color contrast
-
-## Project Structure
+This is a static website (plain HTML, CSS and JS) with no build step and no Node.js required. Open `index.html` in a browser to preview it.
 
 ```
-src/
-├── components/          # React components for each section
-├── data/               # Portfolio content (separate from UI)
-│   ├── profile.js
-│   ├── experience.js
-│   ├── projects.js
-│   └── skills.js
-├── assets/             # Images and static files
-├── App.jsx
-├── App.css
-├── index.css
-└── main.jsx
+index.html                     Main portfolio (dark theme)
+assets/css/main.css            Main portfolio styles (colour tokens at the top)
+assets/js/site.js              Shared: mobile menu, scroll reveal, footer year
+assets/img/                    Portrait and favicon
 
-dist/                   # Production build output
+svm-dhukra/
+  index.html                   SVM Dhukra school page: lab, student projects, approach, plans
+  partner.html                 Sponsor page (the link to email suppliers). Add ?for=Robocraze to show
+                               "Prepared for Robocraze" at the top
+  svm-data.js                  ★ ALL school content: stats, projects, videos, requirements, tiers
+  svm-render.js                Renders svm-data.js into the pages (no need to edit)
+  svm.css / doc.css            Page styles / A4 print-document styles
+  school-portfolio.html        Document A (editable source)
+  hardware-proposal.html       Document B (editable source)
+  downloads/*.pdf              Generated PDFs (rebuild with tools/build-pdfs.ps1)
+  media/                       Student project photos
+
+materials/                     Not published on the website
+  outreach/                    Email, WhatsApp, LinkedIn, follow-up and pitch for each sponsor type
+  school-project-inventory.md  Verified project inventory (to fill in)
+  component-requirements.md    Requirements working sheet
+
+tools/build-pdfs.ps1           Regenerates both PDFs with Edge/Chrome
 ```
 
-## Getting Started
+## Common updates
 
-### Prerequisites
-- Node.js 16+ and npm
+| I want to… | Edit |
+|---|---|
+| Add a student project | `svm-dhukra/svm-data.js` → `projects` (example inside), photo in `svm-dhukra/media/` |
+| Add a school video | `svm-dhukra/svm-data.js` → `videos` (YouTube video ID only) |
+| Change stats or the component list | `svm-dhukra/svm-data.js` |
+| Add the robot-arm demo video | `index.html`: search for `PROJECT VIDEO`, paste the YouTube ID, uncomment |
+| Add LinkedIn | `index.html`: search for `LINKEDIN`, paste the URL, uncomment |
+| Edit portfolio text | `index.html` (each section is labelled with a comment) |
 
-### Installation
+After changing anything school-related, **rebuild the PDFs** so the downloads match the site:
 
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\build-pdfs.ps1
 ```
 
-The site will be available at `http://localhost:5173`
+## Deploy (GitHub Pages)
 
-## Customization
+1. Push this repo to GitHub.
+2. In the repo, go to **Settings → Pages → Source** and select **GitHub Actions**.
+3. Every push to `main` runs `.github/workflows/deploy.yml`, which publishes only `index.html`, `assets/` and `svm-dhukra/`.
+4. The site will be at `https://<username>.github.io/<repo>/`. All links are relative, so it works at any sub-path.
+   For a custom domain, add it under Settings → Pages.
 
-### Update Your Information
+Any other static host (Netlify, Cloudflare Pages, Vercel) works too: drag-and-drop the same three items.
 
-Edit these files to add your information:
+## Accuracy rules for this project
 
-1. **src/data/profile.js** - Your name, bio, links, and personal info
-2. **src/data/experience.js** - Work experience and projects
-3. **src/data/projects.js** - Featured projects and personal robotics work
-4. **src/data/skills.js** - Technical skills by category
-
-### Add Project Images
-
-Place project images in `public/images/` and reference them in the projects data.
-
-### Customize Colors and Fonts
-
-Edit `src/index.css` and component-specific CSS files to customize the design.
-
-## Building for Production
-
-```bash
-# Build the optimized production version
-npm run build
-
-# Output will be in the dist/ folder
-```
-
-## Deployment to GitHub Pages
-
-### Option 1: Using GitHub Actions (Recommended)
-
-1. Create a `.github/workflows/deploy.yml` file with GitHub Actions workflow
-2. Push to your `main` branch
-3. GitHub will automatically build and deploy to `gh-pages` branch
-
-### Option 2: Manual Deployment
-
-1. Build the project: `npm run build`
-2. The `dist/` folder contains your static site
-3. Deploy via GitHub Pages settings
-
-## Technologies Used
-
-- React 18
-- Vite
-- Three.js & React Three Fiber
-- Framer Motion
-- CSS3
-
----
-
-Built for robotics. Deployed on GitHub Pages.
+- Professional facts come from the resume only. The Wipro PARI entry is deliberately generic.
+- Robot-arm specs (payload, reach, accuracy) are not published until they've been measured.
+- School projects are added only from real photos and videos. Never list components that can't be confirmed.
+- Contribution levels are proposals, not commitments. Never state that a company has agreed to sponsor.

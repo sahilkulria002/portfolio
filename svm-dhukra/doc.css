@@ -1,0 +1,106 @@
+/* Print documents (A4). Loaded after svm.css and reuses its components. */
+@page { size: A4; margin: 0; }
+
+body.doc { background: #dfe5f0; font-size: 10.5pt; line-height: 1.55; }
+.doc-bar { position: sticky; top: 0; z-index: 10; background: var(--ink); color: #cfd8ea; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 20px; font-size: 0.88rem; flex-wrap: wrap; }
+.doc-bar a { color: #fff; }
+.doc-bar .btn { padding: 8px 14px; font-size: 0.85rem; }
+
+.page {
+  width: 210mm; min-height: 297mm; margin: 24px auto; background: #fff;
+  padding: 16mm 17mm 18mm; position: relative; overflow: hidden;
+  box-shadow: 0 8px 30px rgba(15, 27, 51, 0.15);
+  break-after: page; page-break-after: always;
+  display: flex; flex-direction: column;
+}
+.page:last-child { break-after: auto; page-break-after: auto; }
+.page-foot { margin-top: auto; padding-top: 8mm; display: flex; justify-content: space-between; font-size: 8pt; color: var(--muted); border-top: 1px solid var(--line); }
+.page-foot b { color: var(--blue); }
+
+/* Cover */
+.cover { padding: 0; }
+.cover-top { flex: 1; padding: 22mm 18mm 14mm; display: flex; flex-direction: column; justify-content: flex-end;
+  background: radial-gradient(circle at 85% 10%, rgba(242, 113, 28, 0.35), transparent 40%), linear-gradient(150deg, #153f93 0%, #1f5fd6 60%, #2a6be6 100%); color: #e8efff; }
+.cover.b .cover-top { background: radial-gradient(circle at 15% 10%, rgba(31, 95, 214, 0.45), transparent 45%), linear-gradient(150deg, #8f3a07 0%, #e2620f 55%, #f2711c 100%); }
+.cover .doc-type { font-size: 9pt; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #ffd2b0; }
+.cover.b .doc-type { color: #fff1e6; }
+.cover h1 { color: #fff; font-size: 34pt; line-height: 1.05; margin: 6mm 0 4mm; font-weight: 800; }
+.cover .lede { font-size: 13pt; max-width: 135mm; color: #e8efff; }
+.cover-bottom { padding: 10mm 18mm 14mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; }
+.cover-bottom .stat { box-shadow: none; padding: 4mm; border-radius: 10px; }
+.cover-bottom .stat strong { font-size: 18pt; }
+.cover-bottom .stat span { font-size: 8pt; }
+.cover-meta { padding: 0 18mm 12mm; font-size: 9pt; color: var(--muted); display: flex; justify-content: space-between; gap: 10px; }
+
+/* Content */
+.sec-n { font-size: 8.5pt; font-weight: 800; letter-spacing: 0.16em; color: var(--orange); text-transform: uppercase; }
+.page h2 { font-size: 20pt; margin: 2mm 0 4mm; }
+.page h2 + p, .page .lead { font-size: 11.5pt; color: var(--ink); }
+.page p + p { margin-top: 3mm; }
+.block { margin-top: 8mm; }
+.block > h3 { font-size: 12.5pt; margin-bottom: 3mm; }
+.callout { background: var(--bg-soft); border-left: 4px solid var(--blue); border-radius: 6px; padding: 4mm 5mm; margin-top: 5mm; }
+.callout.o { background: var(--orange-soft); border-left-color: var(--orange); }
+
+.doc .stats { grid-template-columns: repeat(4, 1fr); gap: 4mm; }
+.doc .stat { box-shadow: none; padding: 4mm; }
+.doc .stat strong { font-size: 17pt; }
+.doc .stat span { font-size: 8.5pt; }
+.doc .infra-grid { grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+.doc .infra { padding: 3.5mm; }
+.doc .infra span { font-size: 8.5pt; }
+.doc .proj-grid { grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+.doc .proj { break-inside: avoid; }
+.doc .proj-body { padding: 3mm 4mm 4mm; gap: 1.5mm; }
+.doc .proj h3 { font-size: 10.5pt; }
+.doc .proj p { font-size: 8.5pt; }
+.doc .empty { padding: 7mm; }
+.doc .steps { grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+.doc .stepc { padding: 4mm; }
+.doc .plans { grid-template-columns: repeat(2, 1fr); gap: 4mm; }
+.doc .plan { padding: 4mm 5mm; }
+.doc .models { grid-template-columns: repeat(2, 1fr); gap: 3mm; }
+.doc .model { padding: 3mm 4mm; }
+.doc .tiers { grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+.doc .tier { padding: 5mm; }
+.doc .tier strong { font-size: 13pt; white-space: nowrap; }
+.doc .ticks { grid-template-columns: 1fr 1fr; gap: 2.5mm 8mm; }
+.doc .vid-grid { grid-template-columns: 1fr 1fr; gap: 4mm; margin-top: 4mm; }
+.doc .vid { display: flex; gap: 3mm; align-items: center; padding: 2mm; }
+.doc .vid img { width: 32mm; border-radius: 6px; }
+.doc .vid span { padding: 0; font-size: 9pt; }
+.doc .vid small { color: var(--muted); font-weight: 400; word-break: break-all; }
+.doc .contact-card { box-shadow: none; padding: 5mm 6mm; gap: 1mm; }
+.doc .contact-card span { margin-bottom: 2mm; }
+
+/* Requirements tables */
+.req-cat { break-inside: avoid; margin-top: 5mm; }
+.req-cat h3 { font-size: 11pt; display: flex; align-items: center; gap: 2.5mm; margin-bottom: 2mm; }
+.req-cat h3 span { width: 6mm; height: 6mm; border-radius: 50%; background: var(--blue); color: #fff; display: grid; place-items: center; font-size: 8pt; }
+.req-cat table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+.req-cat th { text-align: left; font-size: 7.5pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 1.5px solid var(--line); padding: 1.5mm 2mm; }
+.req-cat td { border-bottom: 1px solid var(--line); padding: 1.8mm 2mm; vertical-align: top; }
+.req-cat td:first-child { font-weight: 600; color: var(--ink); width: 36%; }
+.req-cat td.qty { color: var(--muted); font-style: italic; white-space: nowrap; width: 17%; }
+.pri { display: inline-block; font-size: 7.5pt; font-weight: 700; padding: 0.6mm 2mm; border-radius: 99px; }
+.pri-high { background: #ffe3d0; color: #a8460a; }
+.pri-medium { background: var(--blue-soft); color: var(--blue-dark); }
+.pri-future { background: #eef0f4; color: #5a6478; }
+.legend { display: flex; gap: 5mm; flex-wrap: wrap; font-size: 8.5pt; color: var(--muted); margin-top: 3mm; }
+
+@media print {
+  body.doc { background: #fff; }
+  .doc-bar { display: none; }
+  .page { margin: 0; box-shadow: none; width: 210mm; height: 297mm; min-height: 0; }
+  .js .reveal { opacity: 1 !important; transform: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media screen and (max-width: 840px) {
+  .page { width: auto; min-height: 0; margin: 12px; padding: 20px 16px; }
+  .cover { padding: 0; }
+  .cover-top { padding: 40px 18px 24px; }
+  .cover-bottom, .doc .stats, .doc .infra-grid, .doc .proj-grid, .doc .tiers { grid-template-columns: 1fr 1fr; }
+  .doc .steps, .doc .plans, .doc .models, .doc .ticks, .doc .vid-grid { grid-template-columns: 1fr; }
+  .cover h1 { font-size: 2rem; }
+  .req-cat { overflow-x: auto; }
+}
