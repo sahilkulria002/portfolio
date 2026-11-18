@@ -18,7 +18,8 @@ svm-dhukra/
   school-portfolio.html        Document A (editable source)
   hardware-proposal.html       Document B (editable source)
   downloads/*.pdf              Generated PDFs (rebuild with tools/build-pdfs.ps1)
-  media/                       Student project photos
+  img/                         Web-sized project photos (published)
+  media/                       Original videos/photos (local only, git-ignored)
 
 materials/                     Not published on the website
   outreach/                    Email, WhatsApp, LinkedIn, follow-up and pitch for each sponsor type
@@ -32,7 +33,7 @@ tools/build-pdfs.ps1           Regenerates both PDFs with Edge/Chrome
 
 | I want to… | Edit |
 |---|---|
-| Add a student project | `svm-dhukra/svm-data.js` → `projects` (example inside), photo in `svm-dhukra/media/` |
+| Add a student project | `svm-dhukra/svm-data.js` → `projects` (example inside), web-sized photo in `svm-dhukra/img/` (originals stay in `media/`, which is git-ignored) |
 | Add a school video | `svm-dhukra/svm-data.js` → `videos` (YouTube video ID only) |
 | Change stats or the component list | `svm-dhukra/svm-data.js` |
 | Add the robot-arm demo video | `index.html`: search for `PROJECT VIDEO`, paste the YouTube ID, uncomment |

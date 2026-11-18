@@ -50,6 +50,7 @@ window.SVM_DATA = {
   Example (copy, uncomment, fill):
   {
     title: "Automatic Rain Alarm",
+    stages: ["design","simulate","build","demo"], // only stages you can SEE in the video/photos
     type: "robotics",                    // "robotics" (Arduino/robotics) or "science" (science & engineering models)
     category: "Arduino · Sensors",      // short label
     description: "Buzzer sounds when the rain sensor detects water.",
@@ -60,7 +61,50 @@ window.SVM_DATA = {
     link: ""                             // original post URL
   },
   */
-  projects: [],
+  projects: [
+    {
+      // Source: media/A_smart_dustbin.mp4 (components read from the circuit design shown in the video)
+      type: "robotics",
+      title: "Smart Dustbin: Contactless Waste-Disposal System",
+      category: "Embedded Systems · Simulation-First Design",
+      description: "A hygienic, touch-free waste-disposal system built around an Arduino Uno. An ultrasonic distance sensor continuously monitors the space in front of the bin. When a user approaches, the microcontroller drives a servo-actuated lid open and returns it to the closed position afterwards, with no physical contact needed.",
+      components: ["Arduino Uno", "Ultrasonic distance sensor", "Servo actuator", "Indicator LEDs", "Breadboard"],
+      stages: ["design", "simulate", "build", "demo"],   // all four visible in the video
+      domain: "Automation",
+      objective: "Simulation-first development. The team modelled the complete circuit (sensor, microcontroller, servo and indicator LEDs) in a virtual electronics simulator and checked the sense-and-actuate logic there before building any hardware. Only then did they assemble and demonstrate the physical prototype. This is the same design → simulate → build → validate workflow used in professional embedded-systems engineering.",
+      image: "img/smart-dustbin.jpg",
+      youtube: "",   // paste the YouTube video ID here when uploaded
+      link: ""
+    },
+    {
+      // Source: media/obstacle_avoiding_car.mp4 (robot, front ultrasonic sensor, Arduino IDE code all visible)
+      type: "robotics",
+      domain: "Mobile Robotics",
+      title: "Obstacle-Avoiding Robot: Autonomous Mobile Platform",
+      category: "Mobile Robotics · Autonomous Navigation",
+      description: "A four-wheel autonomous ground robot that drives itself through its surroundings. A forward-facing ultrasonic range sensor scans the path ahead, and the on-board controller reads it continuously to detect obstacles and change the robot's motion without any human input. The students built the chassis and body themselves, then tested the robot driving freely on the floor.",
+      components: ["Arduino-based controller", "Ultrasonic range sensor", "4-wheel drive chassis", "DC geared motors"],
+      objective: "Closed-loop autonomy. Sensing, decision-making and actuation run as one continuous loop on the robot itself, and the control firmware was written by the students in the Arduino IDE. This perceive → decide → act cycle is the foundation of autonomous mobile robots, from warehouse robots to self-driving vehicles.",
+      stages: ["code", "build", "demo"],
+      image: "img/obstacle-avoiding-car.jpg",
+      youtube: "",
+      link: ""
+    },
+    {
+      // Source: media/Smart_rail_passway.mp4 (crossing model, ultrasonic sensor posts, red/green signal on gantry)
+      type: "robotics",
+      domain: "Smart Transport",
+      title: "Smart Rail Passway: Automated Level-Crossing Safety",
+      category: "Smart Infrastructure · Sensor Networks",
+      description: "A scale model of an automated railway level crossing. Sensor stations on both sides of the crossing use ultrasonic sensors to detect an approaching train (simulated in the demo with a moving panel). The system then switches the gantry signal from green to red, warning road traffic without depending on a human gatekeeper.",
+      components: ["Ultrasonic sensor stations", "Red / green signal LEDs", "Overhead signal gantry", "Road-and-crossing scale model"],
+      objective: "Distributed sensing for public safety. Sensing is placed at more than one point along the track, and the crossing reacts to real-world events automatically. It is a small-scale version of the intelligent transport infrastructure that is replacing manual level crossings.",
+      stages: ["build", "demo"],
+      image: "img/smart-rail-passway.jpg",
+      youtube: "",
+      link: ""
+    }
+  ],
 
   /* ---------- Extra videos not tied to a single project ---------- */
   videos: [

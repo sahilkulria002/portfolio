@@ -32,3 +32,6 @@ _site
 start.txt
 goal.txt
 materials/
+
+# Original student photos/videos (large, local only). Web-sized copies go in svm-dhukra/img/
+svm-dhukra/media/

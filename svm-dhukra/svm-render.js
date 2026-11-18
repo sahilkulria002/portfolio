@@ -13,6 +13,120 @@
   function ytUrl(id) { return 'https://www.youtube.com/watch?v=' + encodeURIComponent(id); }
   var isDoc = document.body.classList.contains('doc');
 
+  // Engineering pipeline shown on every project. A project's `stages` lists the keys
+  // that are actually evidenced in its video/photos (never add a stage you haven't seen).
+  var PIPELINE = [
+    { key: 'design', short: 'Design', name: 'Circuit design', text: 'System and wiring designed before any hardware was touched.' },
+    { key: 'simulate', short: 'Simulate', name: 'Virtual simulation', text: 'Circuit and control logic checked in an electronics simulator.' },
+    { key: 'code', short: 'Code', name: 'Firmware', text: 'Control logic written and flashed to the microcontroller.' },
+    { key: 'build', short: 'Build', name: 'Physical prototype', text: 'Hardware assembled and integrated into a working model.' },
+    { key: 'demo', short: 'Demo', name: 'Live demonstration', text: 'System demonstrated working and explained by the students.' }
+  ];
+  function splitTitle(t) {
+    var k = String(t || '').indexOf(': ');
+    return k > -1 ? [t.slice(0, k), t.slice(k + 2)] : [t, ''];
+  }
+
+  // ---------- Project detail dialog (web only) ----------
+  function openProject(i) {
+    var p = D.projects[i];
+    if (!p) return;
+    var dlg = document.getElementById('proj-dialog');
+    if (!dlg) {
+      dlg = document.createElement('dialog');
+      dlg.id = 'proj-dialog';
+      dlg.className = 'pdlg';
+      document.body.appendChild(dlg);
+      dlg.addEventListener('click', function (e) { if (e.target === dlg || e.target.closest('.pdlg-close')) dlg.close(); });
+      dlg.addEventListener('close', function () { dlg.innerHTML = ''; });
+    }
+    var parts = splitTitle(p.title);
+    var done = p.stages || [];
+    var media = p.youtube
+      ? '<div class="pdlg-video"><iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(p.youtube) + '" title="' + esc(parts[0]) + ' video" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div>'
+      : (p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(parts[0]) + '">' : '');
+    dlg.innerHTML =
+      '<div class="pdlg-inner">' +
+        '<button type="button" class="pdlg-close" aria-label="Close">×</button>' +
+        '<div class="pdlg-media">' + media + (p.youtube ? '' : '<span class="pdlg-vidnote">Project video coming soon</span>') + '</div>' +
+        '<div class="pdlg-body">' +
+          '<span class="pdlg-cat">' + esc(p.category || '') + '</span>' +
+          '<h3>' + esc(parts[0]) + '</h3>' +
+          (parts[1] ? '<p class="pdlg-sub">' + esc(parts[1]) + '</p>' : '') +
+          (p.description ? '<p>' + esc(p.description) + '</p>' : '') +
+          '<h4>Engineering pipeline</h4>' +
+          '<ol class="pipe">' + PIPELINE.map(function (s) {
+            var on = done.indexOf(s.key) > -1;
+            return '<li class="' + (on ? 'on' : '') + '"><b>' + esc(s.name) + '</b><span>' + esc(on ? s.text : 'Not documented') + '</span></li>';
+          }).join('') + '</ol>' +
+          (p.objective ? '<h4>Engineering focus</h4><p>' + esc(p.objective) + '</p>' : '') +
+          (p.components && p.components.length ? '<h4>System components</h4><div class="bom">' + p.components.map(function (c) { return '<span>' + esc(c) + '</span>'; }).join('') + '</div>' : '') +
+          (p.link ? '<a class="pdlg-link" href="' + esc(p.link) + '" target="_blank" rel="noopener">Original post ↗</a>' : '') +
+        '</div>' +
+      '</div>';
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+  }
+  document.addEventListener('click', function (e) {
+    var card = e.target.closest && e.target.closest('.pcard, .xp-row, .xp-open');
+    if (card) openProject(+card.getAttribute('data-proj'));
+  });
+
+  // ---------- Explorer behaviour ----------
+  function stageHTML(i) {
+    var p = D.projects[i], parts = splitTitle(p.title), done = p.stages || [];
+    var img = p.image || (p.youtube ? ytThumb(p.youtube) : '');
+    return '<div class="xp-photo">' +
+        (img ? '<img src="' + esc(img) + '" alt="' + esc(parts[0]) + '">' : '') +
+        '<span class="xp-big" aria-hidden="true">' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<span class="xp-cat">' + esc(p.category || '') + '</span>' +
+      '</div>' +
+      '<div class="xp-info">' +
+        '<h3>' + esc(parts[0]) + '</h3>' +
+        (parts[1] ? '<p class="xp-sub">' + esc(parts[1]) + '</p>' : '') +
+        '<p class="xp-desc">' + esc(p.description || '') + '</p>' +
+        '<div class="xp-pipe">' + PIPELINE.map(function (s) {
+          return '<span class="' + (done.indexOf(s.key) > -1 ? 'on' : '') + '">' + esc(s.short) + '</span>';
+        }).join('') + '</div>' +
+        '<div class="xp-actions">' +
+          '<button type="button" class="xp-open" data-proj="' + i + '">Explore full project →</button>' +
+          (p.youtube ? '<span class="xp-vid">▶ Video inside</span>' : '<span class="xp-vid muted">Video coming soon</span>') +
+        '</div>' +
+      '</div>';
+  }
+  function initExplorer(root) {
+    var stage = root.querySelector('.xp-stage');
+    var rows = Array.prototype.slice.call(root.querySelectorAll('.xp-row'));
+    var current = -1;
+    function show(row) {
+      var i = +row.getAttribute('data-proj');
+      rows.forEach(function (r) { r.classList.toggle('active', r === row); });
+      if (i === current) return;
+      current = i;
+      stage.classList.remove('in');
+      stage.innerHTML = stageHTML(i);
+      void stage.offsetWidth; // restart the fade-in
+      stage.classList.add('in');
+    }
+    rows.forEach(function (r) {
+      r.addEventListener('mouseenter', function () { show(r); });
+      r.addEventListener('focus', function () { show(r); });
+    });
+    root.querySelectorAll('.xp-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var d = chip.getAttribute('data-domain');
+        root.querySelectorAll('.xp-chip').forEach(function (c) { c.classList.toggle('on', c === chip); });
+        var first = null;
+        rows.forEach(function (r) {
+          var hit = !d || r.getAttribute('data-domain') === d;
+          r.parentNode.hidden = !hit;
+          if (hit && !first) first = r;
+        });
+        if (first) show(first);
+      });
+    });
+    if (rows[0]) show(rows[0]);
+  }
+
   var blocks = {
     stats: function () {
       return D.stats.map(function (s) {
@@ -36,6 +150,37 @@
           (isDoc ? '' : ' Until then, see the latest work on the school\'s <a href="' + esc(D.facebook) + '" target="_blank" rel="noopener">Facebook page</a>.') +
           '</p></div>';
       }
+      if (!isDoc) {
+        // Project explorer: filter chips + numbered index on the left, live preview stage on the right.
+        el.className = 'xp-host';
+        var domains = [];
+        list.forEach(function (p) { if (p.domain && domains.indexOf(p.domain) < 0) domains.push(p.domain); });
+        return '<div class="xp">' +
+          '<div class="xp-head">' +
+            '<div class="xp-filters" role="group" aria-label="Filter projects">' +
+              '<button type="button" class="xp-chip on" data-domain="">All</button>' +
+              domains.map(function (d) { return '<button type="button" class="xp-chip" data-domain="' + esc(d) + '">' + esc(d) + '</button>'; }).join('') +
+            '</div>' +
+            '<span class="xp-count"><b>' + String(list.length).padStart(2, '0') + '</b> projects documented · more being added</span>' +
+          '</div>' +
+          '<div class="xp-main">' +
+            '<ol class="xp-list">' + list.map(function (p) {
+              var i = D.projects.indexOf(p), parts = splitTitle(p.title), done = p.stages || [];
+              var img = p.image || (p.youtube ? ytThumb(p.youtube) : '');
+              return '<li><button type="button" class="xp-row" data-proj="' + i + '" data-domain="' + esc(p.domain || '') + '" aria-haspopup="dialog">' +
+                (img ? '<img class="xp-thumb" src="' + esc(img) + '" alt="" loading="lazy">' : '') +
+                '<span class="xp-n">' + String(i + 1).padStart(2, '0') + '</span>' +
+                '<span class="xp-t"><b>' + esc(parts[0]) + '</b><small>' + esc(parts[1] || p.category || '') + '</small></span>' +
+                '<span class="xp-dots" aria-label="' + done.length + ' of ' + PIPELINE.length + ' engineering stages documented">' +
+                  PIPELINE.map(function (s) { return '<i class="' + (done.indexOf(s.key) > -1 ? 'on' : '') + '"></i>'; }).join('') +
+                '</span>' +
+                '<span class="xp-go" aria-hidden="true">→</span>' +
+              '</button></li>';
+            }).join('') + '</ol>' +
+            '<div class="xp-stage" aria-live="polite"></div>' +
+          '</div>' +
+        '</div>';
+      }
       return list.map(function (p) {
         var media = '';
         if (p.image) media = '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">';
@@ -48,7 +193,7 @@
           (p.category ? '<span class="proj-cat">' + esc(p.category) + '</span>' : '') +
           '<h3>' + esc(p.title) + '</h3>' +
           (p.description ? '<p>' + esc(p.description) + '</p>' : '') +
-          (p.objective ? '<p class="proj-obj"><b>Learning goal:</b> ' + esc(p.objective) + '</p>' : '') +
+          (p.objective ? '<p class="proj-obj"><b>Engineering focus:</b> ' + esc(p.objective) + '</p>' : '') +
           (p.components && p.components.length ? '<div class="proj-parts">' + p.components.map(function (c) { return '<span>' + esc(c) + '</span>'; }).join('') + '</div>' : '') +
           (p.link && !isDoc ? '<a class="proj-link" href="' + esc(p.link) + '" target="_blank" rel="noopener">Original post ↗</a>' : '') +
           '</div></article>';
@@ -129,4 +274,5 @@
     var fn = blocks[el.getAttribute('data-svm')];
     if (fn) el.innerHTML = fn(el);
   });
+  document.querySelectorAll('.xp').forEach(initExplorer);
 })();
