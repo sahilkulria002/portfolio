@@ -67,7 +67,7 @@
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
   }
   document.addEventListener('click', function (e) {
-    var card = e.target.closest && e.target.closest('.pcard, .xp-row, .xp-open');
+    var card = e.target.closest && e.target.closest('.pcard, .xp-row, .xp-open, .tile');
     if (card) openProject(+card.getAttribute('data-proj'));
   });
 
@@ -92,6 +92,22 @@
           (p.youtube ? '<span class="xp-vid">▶ Video inside</span>' : '<span class="xp-vid muted">Video coming soon</span>') +
         '</div>' +
       '</div>';
+  }
+  function initWall(root) {
+    var tiles = Array.prototype.slice.call(root.querySelectorAll('.tile'));
+    root.querySelectorAll('.wall-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var d = chip.getAttribute('data-domain');
+        root.querySelectorAll('.wall-chip').forEach(function (c) { c.classList.toggle('on', c === chip); });
+        root.classList.toggle('filtered', !!d);
+        tiles.forEach(function (t, k) {
+          var hit = !d || t.getAttribute('data-domain') === d;
+          t.hidden = !hit;
+          t.classList.remove('pop');
+          if (hit) { void t.offsetWidth; t.classList.add('pop'); }
+        });
+      });
+    });
   }
   function initExplorer(root) {
     var stage = root.querySelector('.xp-stage');
@@ -151,35 +167,39 @@
           '</p></div>';
       }
       if (!isDoc) {
-        // Project explorer: filter chips + numbered index on the left, live preview stage on the right.
-        el.className = 'xp-host';
+        // Project wall: every project visible at once as a photo mosaic.
+        // Tile sizes follow a repeating pattern so the wall looks curated; the first project is always the hero tile.
+        el.className = 'wall-host';
         var domains = [];
         list.forEach(function (p) { if (p.domain && domains.indexOf(p.domain) < 0) domains.push(p.domain); });
-        return '<div class="xp">' +
-          '<div class="xp-head">' +
-            '<div class="xp-filters" role="group" aria-label="Filter projects">' +
-              '<button type="button" class="xp-chip on" data-domain="">All</button>' +
-              domains.map(function (d) { return '<button type="button" class="xp-chip" data-domain="' + esc(d) + '">' + esc(d) + '</button>'; }).join('') +
+        var SIZES = ['', 'tall', '', 'wide', '', '', 'tall', 'wide', '', '', 'wide', 'tall', '', ''];
+        return '<div class="wall-bar">' +
+            '<div class="wall-filters" role="group" aria-label="Filter projects">' +
+              '<button type="button" class="wall-chip on" data-domain="">All <b>' + list.length + '</b></button>' +
+              domains.map(function (d) {
+                var n = list.filter(function (p) { return p.domain === d; }).length;
+                return '<button type="button" class="wall-chip" data-domain="' + esc(d) + '">' + esc(d) + ' <b>' + n + '</b></button>';
+              }).join('') +
             '</div>' +
-            '<span class="xp-count"><b>' + String(list.length).padStart(2, '0') + '</b> projects documented · more being added</span>' +
           '</div>' +
-          '<div class="xp-main">' +
-            '<ol class="xp-list">' + list.map(function (p) {
-              var i = D.projects.indexOf(p), parts = splitTitle(p.title), done = p.stages || [];
-              var img = p.image || (p.youtube ? ytThumb(p.youtube) : '');
-              return '<li><button type="button" class="xp-row" data-proj="' + i + '" data-domain="' + esc(p.domain || '') + '" aria-haspopup="dialog">' +
-                (img ? '<img class="xp-thumb" src="' + esc(img) + '" alt="" loading="lazy">' : '') +
-                '<span class="xp-n">' + String(i + 1).padStart(2, '0') + '</span>' +
-                '<span class="xp-t"><b>' + esc(parts[0]) + '</b><small>' + esc(parts[1] || p.category || '') + '</small></span>' +
-                '<span class="xp-dots" aria-label="' + done.length + ' of ' + PIPELINE.length + ' engineering stages documented">' +
-                  PIPELINE.map(function (s) { return '<i class="' + (done.indexOf(s.key) > -1 ? 'on' : '') + '"></i>'; }).join('') +
-                '</span>' +
-                '<span class="xp-go" aria-hidden="true">→</span>' +
-              '</button></li>';
-            }).join('') + '</ol>' +
-            '<div class="xp-stage" aria-live="polite"></div>' +
-          '</div>' +
-        '</div>';
+          '<div class="wall">' + list.map(function (p, k) {
+            var i = D.projects.indexOf(p), parts = splitTitle(p.title);
+            var img = p.image || (p.youtube ? ytThumb(p.youtube) : '');
+            var size = k === 0 ? 'big' : SIZES[k % SIZES.length];
+            var sim = (p.stages || []).indexOf('simulate') > -1;
+            return '<button type="button" class="tile ' + size + '" data-proj="' + i + '" data-domain="' + esc(p.domain || '') + '" aria-haspopup="dialog" style="--d:' + (k * 40) + 'ms">' +
+              (img ? '<img src="' + esc(img) + '" alt="" loading="' + (k < 6 ? 'eager' : 'lazy') + '">' : '') +
+              '<span class="tile-shade" aria-hidden="true"></span>' +
+              '<span class="tile-tags"><span class="tile-cat">' + esc(p.domain || '') + '</span>' +
+                (sim ? '<span class="tile-flag">Simulated first</span>' : '') + '</span>' +
+              '<span class="tile-txt">' +
+                '<span class="tile-n">' + String(i + 1).padStart(2, '0') + '</span>' +
+                '<span class="tile-title">' + esc(parts[0]) + '</span>' +
+                (parts[1] ? '<span class="tile-sub">' + esc(parts[1]) + '</span>' : '') +
+              '</span>' +
+              '<span class="tile-go" aria-hidden="true">↗</span>' +
+            '</button>';
+          }).join('') + '</div>';
       }
       return list.map(function (p) {
         var media = '';
@@ -187,15 +207,15 @@
         else if (p.youtube) media = '<img src="' + ytThumb(p.youtube) + '" alt="' + esc(p.title) + ' video" loading="lazy">';
         var href = p.youtube ? ytUrl(p.youtube) : p.link;
         var play = p.youtube && !isDoc ? '<span class="play" aria-hidden="true">▶</span>' : '';
+        // Print card: compact so a dozen projects fit on one A4 page. Full write-ups live on the website.
+        var tp = splitTitle(p.title);
         return '<article class="proj">' +
-          (media ? '<div class="proj-media">' + (href ? '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + media + play + '</a>' : media) + '</div>' : '') +
+          (media ? '<div class="proj-media">' + (href ? '<a href="' + esc(href) + '">' + media + play + '</a>' : media) + '</div>' : '') +
           '<div class="proj-body">' +
-          (p.category ? '<span class="proj-cat">' + esc(p.category) + '</span>' : '') +
-          '<h3>' + esc(p.title) + '</h3>' +
-          (p.description ? '<p>' + esc(p.description) + '</p>' : '') +
-          (p.objective ? '<p class="proj-obj"><b>Engineering focus:</b> ' + esc(p.objective) + '</p>' : '') +
-          (p.components && p.components.length ? '<div class="proj-parts">' + p.components.map(function (c) { return '<span>' + esc(c) + '</span>'; }).join('') + '</div>' : '') +
-          (p.link && !isDoc ? '<a class="proj-link" href="' + esc(p.link) + '" target="_blank" rel="noopener">Original post ↗</a>' : '') +
+          (p.category ? '<span class="proj-cat">' + esc(String(p.category).split(' · ')[0]) + '</span>' : '') +
+          '<h3>' + esc(tp[0]) + '</h3>' +
+          (tp[1] ? '<p class="proj-sub">' + esc(tp[1]) + '</p>' : '') +
+          (p.description ? '<p class="proj-desc">' + esc(p.description) + '</p>' : '') +
           '</div></article>';
       }).join('');
     },
@@ -220,14 +240,27 @@
     requirements: function (el) {
       var from = +(el.getAttribute('data-from') || 0);
       var to = +(el.getAttribute('data-to') || D.requirements.length);
+      // Display labels are deliberately soft: this is a wishlist, not a demand list.
+      var LABEL = { High: 'Used most', Medium: 'Useful', Future: 'Someday' };
+      function table(cat) {
+        return '<table><thead><tr><th>Item</th><th>Need</th><th>Used for</th></tr></thead><tbody>' +
+          cat.items.map(function (it) {
+            return '<tr><td>' + esc(it.name) + '</td><td><span class="pri pri-' + it.priority.toLowerCase() + '">' + esc(LABEL[it.priority] || it.priority) +
+              '</span></td><td>' + esc(it.use) + '</td></tr>';
+          }).join('') + '</tbody></table>';
+      }
       return D.requirements.slice(from, to).map(function (cat, i) {
         var ci = from + i;
-        return '<div class="req-cat"><h3><span>' + (ci + 1) + '</span>' + esc(cat.category) + '</h3>' +
-          '<table><thead><tr><th>Item</th><th>Priority</th><th>Used for</th><th>Qty</th></tr></thead><tbody>' +
-          cat.items.map(function (it) {
-            return '<tr><td>' + esc(it.name) + '</td><td><span class="pri pri-' + it.priority.toLowerCase() + '">' + esc(it.priority) +
-              '</span></td><td>' + esc(it.use) + '</td><td class="qty">To be finalised</td></tr>';
-          }).join('') + '</tbody></table></div>';
+        if (isDoc) {
+          return '<div class="req-cat"><h3><span>' + (ci + 1) + '</span>' + esc(cat.category) + '</h3>' + table(cat) + '</div>';
+        }
+        var preview = cat.items.slice(0, 3).map(function (it) { return it.name.split(' (')[0]; }).join(' · ');
+        return '<details class="req-cat"><summary>' +
+            '<span class="req-n">' + (ci + 1) + '</span>' +
+            '<span class="req-h"><b>' + esc(cat.category) + '</b><small>' + esc(preview) + (cat.items.length > 3 ? ' …' : '') + '</small></span>' +
+            '<span class="req-count">' + cat.items.length + ' items</span>' +
+            '<span class="req-chev" aria-hidden="true"></span>' +
+          '</summary>' + table(cat) + '</details>';
       }).join('');
     },
 
@@ -274,5 +307,5 @@
     var fn = blocks[el.getAttribute('data-svm')];
     if (fn) el.innerHTML = fn(el);
   });
-  document.querySelectorAll('.xp').forEach(initExplorer);
+  document.querySelectorAll('.wall-host').forEach(initWall);
 })();

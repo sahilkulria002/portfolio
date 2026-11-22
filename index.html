@@ -112,11 +112,17 @@
       </div>
     </div>
 
-    <!-- PROJECT VIDEO: paste your YouTube video ID in place of VIDEO_ID and uncomment.
-    <div class="media-frame">
-      <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="Vision-guided mobile robotic arm demo" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-    -->
+    <!-- PROJECT VIDEO (self-hosted). To switch to YouTube later, replace the <video> with:
+         <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="Robotic arm demo" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe> -->
+    <figure class="media-frame">
+      <video controls playsinline preload="none" poster="assets/video/robotic-arm-poster.jpg" aria-label="Robotic arm demo: vision-based tracking and pen-drawing on paper">
+        <source src="assets/video/robotic-arm.mp4" type="video/mp4">
+      </video>
+      <figcaption class="media-cap">
+        <span class="badge live">● Hardware demo</span>
+        <span>3D-printed stepper-driven arm with gear reductions and a pen end-effector, controlled from a custom <b>ARM Movement Controller</b> interface, with an <b>RViz</b> model of the arm, a camera-based <b>contour tracker</b> following a target on the work surface, and <b>ESP32</b> firmware driving the joints.</span>
+      </figcaption>
+    </figure>
 
     <div class="arch" role="figure" aria-label="System architecture of the vision-guided mobile robotic arm">
       <div class="arch-head">
@@ -329,8 +335,8 @@
       <div>
         <p class="eyebrow">Education initiative</p>
         <h2 id="svm-title">SVM Dhukra</h2>
-        <p class="sub">School Robotics &amp; Young Innovators Initiative · Sirsa, Haryana</p>
-        <p>A small private school with a working robotics lab. Students build Arduino, ESP32, sensor and science projects with real hardware: a 3D printer, development boards, sensors, motors and drivers. I've personally invested more than ₹50,000 in components so far. We are now looking for hardware partners to keep it sustainable.</p>
+        <p class="sub">Saraswati Vidya Mandir, Dhukra · Sirsa, Haryana</p>
+        <p>A small private school with a working robotics lab. Students build Arduino, ESP32, sensor and science projects with real hardware: a 3D printer, development boards, sensors, motors and drivers. I've personally invested more than ₹50,000 in components, plus the 3D printer and computers. We are now looking for hardware partners to keep it sustainable.</p>
         <div class="hero-cta">
           <a class="btn btn-orange" href="svm-dhukra/index.html">Visit the initiative →</a>
           <a class="btn btn-ghost" href="svm-dhukra/partner.html">Partner with us</a>
@@ -338,7 +344,7 @@
       </div>
       <div class="svm-stats">
         <div class="svm-stat"><strong>~100</strong><span>students building projects</span></div>
-        <div class="svm-stat"><strong>₹50,000+</strong><span>personally invested in components</span></div>
+        <div class="svm-stat"><strong>₹50,000+</strong><span>in components, plus the 3D printer &amp; computers</span></div>
         <div class="svm-stat"><strong>10–15</strong><span>student project videos documented</span></div>
       </div>
     </div>

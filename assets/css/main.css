@@ -353,3 +353,10 @@ footer a:hover { color: var(--text); }
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+/* Featured project video caption */
+.media-frame { margin-left: 0; margin-right: 0; }
+.media-frame video { width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; object-fit: contain; }
+.media-cap { display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; padding: 14px 18px; border-top: 1px solid var(--line); font-size: 0.9rem; color: var(--muted); }
+.media-cap b { color: var(--text); font-weight: 600; }
+.media-cap .badge { flex: none; margin-top: 2px; }
