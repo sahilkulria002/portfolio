@@ -1,0 +1,6 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/svm-dhukra", "destination": "/svm-dhukra/", "permanent": true }
+  ]
+}

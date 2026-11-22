@@ -23,14 +23,14 @@ window.SVM_DATA = {
     email: "sahilkulria002@gmail.com",
     phone: "+91 70270 50659",
     whatsapp: "917027050659",
-    portfolio: "../index.html" // main portfolio, relative to this folder
+    portfolio: "/" // main portfolio (site root)
   },
 
   stats: [
     { value: "~100", label: "students actively building projects" },
     { value: "₹50,000+", label: "invested in components, plus the 3D printer & computers" },
     { value: "10–15", label: "student project videos documented" },
-    { value: "80–90%", label: "of students took part in the latest project round" }
+    { value: "3D", label: "printer, Arduino & ESP32 lab on campus" }
   ],
 
   infrastructure: [
