@@ -308,7 +308,7 @@ footer a { color: #fff; text-decoration: none; }
 .pdlg-media img { width: 100%; height: 100%; object-fit: cover; }
 .pdlg-video { position: absolute; inset: 0; display: grid; place-items: center; }
 .pdlg-video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; }
-.pdlg-vidnote { position: absolute; left: 14px; bottom: 14px; font-size: 0.75rem; font-weight: 600; color: #fff; background: rgba(0,0,0,0.55); padding: 5px 10px; border-radius: 999px; }
+.pdlg-vidnote { text-decoration: none; position: absolute; left: 14px; bottom: 14px; font-size: 0.75rem; font-weight: 600; color: #fff; background: rgba(0,0,0,0.55); padding: 5px 10px; border-radius: 999px; }
 .pdlg-body { padding: 30px 30px 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
 .pdlg-cat { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange-dark); }
 .pdlg-body h3 { font-size: 1.8rem; font-weight: 800; }
@@ -458,12 +458,9 @@ footer a { color: #fff; text-decoration: none; }
 .nav-pill { display: inline-flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 10px; font-weight: 700; font-size: 0.86rem;
   text-decoration: none; white-space: nowrap; border: 1.5px solid transparent; transition: filter .2s, background .2s, border-color .2s; }
 .nav-pill .sm { display: none; }
-.nav-school { color: var(--blue); border-color: var(--blue); background: transparent; }
-.nav-school:hover { background: var(--blue-soft); }
-.nav-partner { color: #fff; background: var(--orange); }
-.nav-partner:hover { filter: brightness(1.08); }
-.nav-pill[aria-current="page"] { box-shadow: 0 0 0 3px var(--orange-soft); }
-.nav-school[aria-current="page"] { background: var(--blue); color: #fff; box-shadow: 0 0 0 3px var(--blue-soft); }
+.nav-school, .nav-partner { color: var(--ink); border-color: color-mix(in srgb, var(--ink) 28%, transparent); background: transparent; }
+.nav-school:hover, .nav-partner:hover { border-color: var(--orange); color: var(--orange); }
+.nav-pill[aria-current="page"], .nav-pill[aria-current="page"]:hover { background: var(--orange); border-color: var(--orange); color: #fff; box-shadow: 0 0 0 3px var(--orange-soft); }
 @media (max-width: 1100px) { .nav-links a { font-size: 0.8rem; padding: 8px 6px; } }
 @media (max-width: 1000px) {
   .nav-links { justify-content: flex-start; }

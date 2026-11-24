@@ -48,7 +48,7 @@
     dlg.innerHTML =
       '<div class="pdlg-inner">' +
         '<button type="button" class="pdlg-close" aria-label="Close">×</button>' +
-        '<div class="pdlg-media">' + media + (p.youtube ? '' : '<span class="pdlg-vidnote">Project video coming soon</span>') + '</div>' +
+        '<div class="pdlg-media">' + media + (!p.youtube && p.link ? '<a class="pdlg-vidnote" href="' + esc(p.link) + '" target="_blank" rel="noopener">▶ Watch the video on Facebook</a>' : '') + '</div>' +
         '<div class="pdlg-body">' +
           '<span class="pdlg-cat">' + esc(p.category || '') + '</span>' +
           '<h3>' + esc(parts[0]) + '</h3>' +
@@ -61,7 +61,7 @@
           }).join('') + '</ol>' +
           (p.objective ? '<h4>Engineering focus</h4><p>' + esc(p.objective) + '</p>' : '') +
           (p.components && p.components.length ? '<h4>System components</h4><div class="bom">' + p.components.map(function (c) { return '<span>' + esc(c) + '</span>'; }).join('') + '</div>' : '') +
-          (p.link ? '<a class="pdlg-link" href="' + esc(p.link) + '" target="_blank" rel="noopener">Original post ↗</a>' : '') +
+          (p.link ? '<a class="pdlg-link" href="' + esc(p.link) + '" target="_blank" rel="noopener">Watch the project video on Facebook ↗</a>' : '') +
         '</div>' +
       '</div>';
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
@@ -89,7 +89,7 @@
         }).join('') + '</div>' +
         '<div class="xp-actions">' +
           '<button type="button" class="xp-open" data-proj="' + i + '">Explore full project →</button>' +
-          (p.youtube ? '<span class="xp-vid">▶ Video inside</span>' : '<span class="xp-vid muted">Video coming soon</span>') +
+          (p.youtube ? '<span class="xp-vid">▶ Video inside</span>' : (p.link ? '<a class="xp-vid" href="' + esc(p.link) + '" target="_blank" rel="noopener">▶ Video on Facebook</a>' : '')) +
         '</div>' +
       '</div>';
   }
@@ -224,7 +224,12 @@
       var vids = D.videos.slice();
       D.projects.forEach(function (p) { if (p.youtube) vids.push({ title: p.title, youtube: p.youtube }); });
       if (!vids.length) {
-        return '<div class="empty"><strong>Project videos coming soon</strong><p>The lab has 10–15 student project videos ready, and they are being uploaded now.</p></div>';
+        // No YouTube uploads yet: the web page links each project's Facebook video from its card,
+        // so show nothing here; the PDF lists the Facebook video links instead.
+        if (!isDoc) return '';
+        return D.projects.filter(function (p) { return p.link; }).map(function (p) {
+          return '<div class="vid"><span>' + esc(splitTitle(p.title)[0]) + '<br><small>' + esc(p.link) + '</small></span></div>';
+        }).join('');
       }
       if (isDoc) {
         return vids.map(function (v) {
